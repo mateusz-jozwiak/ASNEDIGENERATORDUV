@@ -1,0 +1,6 @@
+{
+  "name": "Generator ASN XML & EDIFACT",
+  "description": "Generator i konwerter dokumentów awizacji wysyłki (ASN / DESADV D96A) do formatu XML i EDIFACT z automatycznym licznikiem GIR, autouzupełnianiem i walidacją błędów.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
