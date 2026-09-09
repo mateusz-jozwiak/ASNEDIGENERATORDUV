@@ -12,6 +12,7 @@ import { loadSavedGIRConfig, saveGIRConfig, assignSequentialGIRs, formatGIRSeria
 import { validateASN } from './utils/validator';
 import { generateXMLByFormat } from './utils/xmlGenerator';
 import { generateEDIFACTDESADV } from './utils/edifactGenerator';
+import { generateConsignmentNotePDF } from './utils/pdfGenerator';
 import { 
   FileText, 
   Sparkles, 
@@ -235,6 +236,17 @@ export default function App() {
     showToast(`Pobrano plik: ${filename}`);
   };
 
+  // Download Consignment Note (Karta Przewozowa) as PDF
+  const handleDownloadPDF = () => {
+    try {
+      generateConsignmentNotePDF(data);
+      showToast(`Wygenerowano i pobrano Kartę Przewozową PDF (ASN ${data.header.asnNumber || '00034'})`);
+    } catch (err) {
+      console.error('Błąd generowania karty przewozowej PDF:', err);
+      showToast('Wystąpił błąd podczas generowania karty przewozowej PDF');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#f0f2f5] text-slate-900 flex flex-col font-sans">
       
@@ -255,6 +267,7 @@ export default function App() {
           const xml = generateXMLByFormat(data, selectedFormat);
           handleCopyText(xml);
         }}
+        onDownloadPDF={handleDownloadPDF}
         copied={copied}
         selectedFormat={selectedFormat}
         onSelectFormat={setSelectedFormat}
@@ -303,7 +316,7 @@ export default function App() {
           onChangeGirConfig={handleGIRConfigChange}
         />
 
-        {/* Generated Output Viewer (XML & EDIFACT) */}
+        {/* Generated Output Viewer (XML, EDIFACT & Karta Przewozowa PDF) */}
         <OutputViewer
           data={data}
           selectedFormat={selectedFormat}
@@ -311,6 +324,7 @@ export default function App() {
           copied={copied}
           onCopyText={handleCopyText}
           onDownloadFile={handleDownloadFile}
+          onDownloadPDF={handleDownloadPDF}
         />
       </main>
 

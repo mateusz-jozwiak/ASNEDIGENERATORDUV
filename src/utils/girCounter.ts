@@ -51,7 +51,7 @@ export function getGIRRangeText(item: ASNItemLine): string {
     return item.girSerial;
   }
   const endSerial = formatGIRSerial(baseNum + packCount - 1, padLen);
-  return `${item.girSerial} → ${endSerial} (${packCount} etykiet)`;
+  return `${item.girSerial} → ${endSerial} (${packCount} op.)`;
 }
 
 /**
